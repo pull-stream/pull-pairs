@@ -1,0 +1,22 @@
+{
+  "name": "pull-pairs",
+  "description": "",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dominictarr/pull-pairs",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dominictarr/pull-pairs.git"
+  },
+  "dependencies": {
+    "looper": "~2.0.0"
+  },
+  "devDependencies": {
+    "pull-stream": "~2.24.0",
+    "tape": "~2.14.0"
+  },
+  "scripts": {
+    "test": "set -e; for t in test/*.js; do node $t; done"
+  },
+  "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
+  "license": "MIT"
+}
