@@ -5,12 +5,13 @@ var pairs = require('../')
 
 tape('simple', function (t) {
 
-  t.plan(3)
+  t.plan(4)
 
   var expected = [
     [null, 1],
     [1, 2],
-    [2, 3]
+    [2, 3],
+    [3, null]
   ]
 
   pull(
@@ -62,7 +63,7 @@ tape('filter everything', function (t) {
       throw new Error('should not call this')
     }, function (err) {
       if(err) throw err
-      t.equal(n, 10000)
+      t.equal(n, 10001)
       t.end()
     })
   )
