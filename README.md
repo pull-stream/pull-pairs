@@ -30,7 +30,23 @@ null 1
 ```
 
 the return value of mapper will be the output of the stream.
-if the return value is `undefined` then 
+if the return value is `undefined` then
+
+## pairs.async
+It also works asynchronously!
+
+```js
+pull(
+  pull.values([1,2,3,4,5]),
+  pairs.async(function mapper (a, b, callback) {
+    console.log([a, b])
+    // call back with the normal output.
+    return callback(null, b)
+  }),
+  pull.drain()
+)
+
+```
 
 ## License
 

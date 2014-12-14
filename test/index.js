@@ -86,9 +86,7 @@ tape('async', function (t) {
     pull.values([1, 2, 3]),
     pairs.async(function (a, b, callback) {
       t.deepEqual([a, b], expected.shift())
-      process.nextTick(function () {
-        return callback(null, b)
-      })
+      return callback(null, b)
     }),
     pull.collect(function (err, arr) {
       if(err) throw err
