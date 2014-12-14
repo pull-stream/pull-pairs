@@ -1,3 +1,4 @@
+'use strict';
 
 var tape = require('tape')
 var pull = require('pull-stream')
@@ -5,7 +6,7 @@ var pairs = require('../')
 
 tape('simple', function (t) {
 
-  t.plan(4)
+  t.plan(5)
 
   var expected = [
     [null, 1],
@@ -18,11 +19,11 @@ tape('simple', function (t) {
     pull.values([1, 2, 3]),
     pairs(function (a, b) {
       t.deepEqual([a, b], expected.shift())
+      return b
     }),
-    pull.drain(null, function (err) {
+    pull.collect(function (err, arr) {
       if(err) throw err
-
-      t.end()
+      t.deepEqual(arr, [1, 2, 3, null], 'values')
     })
 
   )
@@ -66,6 +67,35 @@ tape('filter everything', function (t) {
       t.equal(n, 10001)
       t.end()
     })
+  )
+
+})
+
+tape('async', function (t) {
+
+  t.plan(5)
+
+  var expected = [
+    [null, 1],
+    [1, 2],
+    [2, 3],
+    [3, null]
+  ]
+
+  pull(
+    pull.values([1, 2, 3]),
+    pairs.async(function (a, b, callback) {
+      t.deepEqual([a, b], expected.shift())
+      setTimeout(function () {
+        // call back with the normal output.
+        return callback(null, b)
+      }, 500)
+    }),
+    pull.collect(function (err, arr) {
+      if(err) throw err
+      t.deepEqual(arr, [1, 2, 3, null], 'values')
+    })
+
   )
 
 })
