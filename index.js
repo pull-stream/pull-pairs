@@ -1,3 +1,5 @@
+'use strict';
+
 var looper = require('looper')
 
 module.exports = function (test) {
