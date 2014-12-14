@@ -40,8 +40,10 @@ pull(
   pull.values([1,2,3,4,5]),
   pairs.async(function mapper (a, b, callback) {
     console.log([a, b])
-    // call back with the normal output.
-    return callback(null, b)
+    setTimeout(function () {
+      // call back with the normal output.
+      return callback(null, b)
+    }, 500)
   }),
   pull.drain()
 )
